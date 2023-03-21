@@ -1,0 +1,24 @@
+/**
+ * Description at
+ * https://www.codewars.com/kata/57b06f90e298a7b53d000a86
+ *
+ */
+
+fun main() {
+    println(queueTime(listOf(2,8,5,6,3,5), 2))
+}
+
+fun queueTime(customers: List<Int>, queue: Int): Int {
+    return when {
+        customers.isEmpty() -> 0
+        queue > customers.size -> customers.max()
+        else -> {
+            val q = mutableListOf<MutableList<Int>>()
+            for (i in 1..queue) {
+                q.add(mutableListOf(0))
+            }
+            customers.forEach { q.minBy { list -> list.sum() }.add(it) }
+            q.maxOf { it.sum() }
+        }
+    }
+}
